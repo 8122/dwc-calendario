@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Calendario3</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            div {
+                width: 40px;
+                float: left;
+            }
+            #top {
+                width: 100%;
+            }
+            #resultado {
+                width: 280px;
+            }
+        </style>
+        <script>
+            var fecha = new Date();
+            var anio = fecha.getFullYear();
+            var mes = fecha.getMonth();
+            var meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+            var diasMes = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+            
+            function ejecutar(){
+                if((anio % 4 == 0) && (anio % 100 != 0) || (anio % 400 == 0)){
+                    diasMes[1] = 29;
+                }
+                var primero = new Date(anio, mes, 1);
+                var ultimo = new Date(anio, mes, diasMes[mes]);
+                var diaSemana = primero.getDay();
+                if(diaSemana==0){
+                    diaSemana=7;
+                }
+                var miCalendario = "<p align='center'>"+meses[mes]+" "+anio+"</p><br>";
+                miCalendario += "<div>L</div>";
+                miCalendario += "<div>M</div>";
+                miCalendario += "<div>X</div>";
+                miCalendario += "<div>J</div>";
+                miCalendario += "<div>V</div>";
+                miCalendario += "<div>S</div>";
+                miCalendario += "<div>D</div>";
+                for(var i=1; i<(diaSemana+diasMes[mes]); i++){
+                    if(i<diaSemana){
+                        miCalendario += "<div>&nbsp;</div>";
+                    }else{
+                       miCalendario += "<div>"+(i-diaSemana+1)+"</div>";
+                    }
+                }
+                for(var i=ultimo.getDay(); i<7; i++){
+                    miCalendario += "<div style='width:50'></div>";
+                }
+                document.getElementById("resultado").innerHTML = miCalendario;
+            }
+            
+            function ejecutarPrevio(){
+                mes = mes - 1;
+                if(mes<0){
+                    mes = 11;
+                    anio = anio -1;
+                }
+                ejecutar();
+            }
+            function ejecutarPosterior(){
+                mes = mes +1;
+                if(mes>11){
+                    mes = 0;
+                    anio = anio +1;
+                }
+                ejecutar();
+            }
+            
+        </script>
+    </head>
+    <body>
+        <div id="top">
+            <input type="button" value="Mes previo" onclick="ejecutarPrevio();"/>
+            <input type="button" value="Mes actual" onclick="ejecutar();"/>
+            <input type="button" value="Mes posterior" onclick="ejecutarPosterior();"/>
+        </div>
+        <br>
+        <div id="resultado"></div>
+    </body>
+</html>

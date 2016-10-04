@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Calendario1</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script>
+            function ejecutar(){
+                var mitabla = "<table border='1'>";
+                var ahora = new Date();
+                var meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+                var diaMesActualNum = ahora.getDate();
+                var mesActualNum = ahora.getMonth();
+                var mesActualStr = meses[mesActualNum];
+                var diasMes = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+                var anio = ahora.getFullYear();
+                if((anio % 4 == 0) && (anio % 100 != 0) || (anio % 400 == 0)){
+                    diasMes[1] = 29;
+                }
+                mitabla += "<tr><th colspan='7'>" + mesActualStr + "</th></tr>";
+                mitabla += "<tr><td>L</td><td>M</td><td>X</td><td>J</td><td>V</td><td>S</td><td>D</td></tr>";
+                var msFechaInicio = ahora.getTime() - diaMesActualNum*24*60*60*1000;
+                var fechaInicio = new Date(msFechaInicio);
+                var diaSemanaInicio = fechaInicio.getDay()+1;
+                mitabla += "<tr>";
+                for(var i=1; i<(diasMes[mesActualNum]+diaSemanaInicio); i++){ 
+                    if(i%7==1){
+                        mitabla += "<tr>";
+                    }
+                    if(i<diaSemanaInicio){
+                        mitabla += "<td></td>";
+                    }else{
+                        mitabla += "<td>" + (i-diaSemanaInicio+1) + "</td>";
+                    }
+                }
+                mitabla += "</tr></table>";
+                document.getElementById("resultado").innerHTML = mitabla;
+            }
+        </script>
+    </head>
+    <body>
+        <div id="top">
+            <button onclick="ejecutar();">Calendario mes actual</button>
+        </div>
+        <div id="resultado"></div>
+    </body>
+</html>
