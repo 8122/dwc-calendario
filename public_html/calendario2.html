@@ -9,6 +9,17 @@ and open the template in the editor.
         <title>calendario2</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            table {
+                text-align: center;
+            }
+            .vacio {
+                background: #FFCEB8;
+            }
+            .dia {
+                background: #FFAB68;
+            }
+        </style>
         <script>
             var fecha = new Date();
             var anio = fecha.getFullYear();
@@ -35,10 +46,10 @@ and open the template in the editor.
                         mitabla += "<tr>";
                     }
                     if(i<diaSemana){
-                        mitabla += "<td></td>";
+                        mitabla += "<td class='vacio'></td>";
                         contador++;
                     }else{
-                        mitabla += "<td>" + (i-diaSemana+1) + "</td>";
+                        mitabla += "<td class='dia'>" + (i-diaSemana+1) + "</td>";
                         contador ++;
                     }
                     if(contador==7){
@@ -46,8 +57,12 @@ and open the template in the editor.
                         contador = 0;
                     }
                 }
-                for(var i=ultimo.getDay(); i<7; i++){
-                    mitabla += "<td></td>";
+                var ultimoDia = ultimo.getDay();
+                if(ultimoDia==0){
+                    ultimoDia=7;
+                }
+                for(var i=ultimoDia; i<7; i++){
+                    mitabla += "<td class='vacio'></td>";
                 }
                 mitabla += "</tr></table>";
                 document.getElementById("resultado").innerHTML = mitabla;

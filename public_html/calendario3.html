@@ -11,14 +11,30 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <style>
             div {
-                width: 40px;
+                width: 39px;
                 float: left;
+               /* border: 1px solid black;*/
+                text-align: center;
+             }
+            .div--semana {
+                background: #C5FFB8;
+            }
+            .div--vacio {
+                background: #FFCEB8;
+            }
+            .div--dia {
+                background: #FFAB68;
+            }
+            input {
+
             }
             #top {
-                width: 100%;
-            }
+                width: 273px;
+                border: 0;
+             }
             #resultado {
-                width: 280px;
+                width: 273px;
+                background: #8EBAFF;
             }
         </style>
         <script>
@@ -39,22 +55,26 @@ and open the template in the editor.
                     diaSemana=7;
                 }
                 var miCalendario = "<p align='center'>"+meses[mes]+" "+anio+"</p><br>";
-                miCalendario += "<div>L</div>";
-                miCalendario += "<div>M</div>";
-                miCalendario += "<div>X</div>";
-                miCalendario += "<div>J</div>";
-                miCalendario += "<div>V</div>";
-                miCalendario += "<div>S</div>";
-                miCalendario += "<div>D</div>";
+                miCalendario += "<div class='div--semana'>L</div>";
+                miCalendario += "<div class='div--semana'>M</div>";
+                miCalendario += "<div class='div--semana'>X</div>";
+                miCalendario += "<div class='div--semana'>J</div>";
+                miCalendario += "<div class='div--semana'>V</div>";
+                miCalendario += "<div class='div--semana'>S</div>";
+                miCalendario += "<div class='div--semana'>D</div>";
                 for(var i=1; i<(diaSemana+diasMes[mes]); i++){
                     if(i<diaSemana){
-                        miCalendario += "<div>&nbsp;</div>";
+                        miCalendario += "<div class='div--vacio'>&nbsp;</div>";
                     }else{
-                       miCalendario += "<div>"+(i-diaSemana+1)+"</div>";
+                       miCalendario += "<div class='div--dia'>"+(i-diaSemana+1)+"</div>";
                     }
                 }
-                for(var i=ultimo.getDay(); i<7; i++){
-                    miCalendario += "<div style='width:50'></div>";
+                var ultimoDia = ultimo.getDay();
+                if(ultimoDia==0){
+                    ultimoDia=7;
+                }
+                for(var i=ultimoDia; i<7; i++){
+                    miCalendario += "<div class='div--vacio'>&nbsp;</div>";
                 }
                 document.getElementById("resultado").innerHTML = miCalendario;
             }
